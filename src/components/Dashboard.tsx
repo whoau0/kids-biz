@@ -4,6 +4,7 @@ import {
   ArrowUpRight, Clock, ShieldCheck, ShoppingCart, Sparkles, Building2, ChevronRight
 } from 'lucide-react';
 import { 상품_테이블, 재고_테이블, 판매_테이블, 발주_테이블 } from '../types';
+import { SalesChart } from './SalesChart';
 
 interface DashboardProps {
   products: 상품_테이블[];
@@ -165,14 +166,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <span className="text-slate-400">전일 ({yesterdayAmount.toLocaleString()}원) 대비</span>
           </div>
 
-          <div className="mt-3 pt-3 border-t border-slate-100 grid grid-cols-2 text-[11px] text-slate-500">
-            <div>
-              <span className="block text-slate-400">온라인 ({onlineToday.length}건)</span>
-              <span className="font-bold text-slate-700">{onlineAmount.toLocaleString()}원</span>
+          <div className="mt-3 pt-3 border-t border-slate-100 space-y-2">
+            <div className="grid grid-cols-2 text-[11px] text-slate-500">
+              <div>
+                <span className="block text-slate-400">온라인 ({onlineToday.length}건)</span>
+                <span className="font-bold text-blue-700">{onlineAmount.toLocaleString()}원</span>
+              </div>
+              <div className="text-right">
+                <span className="block text-slate-400">오프라인 ({offlineToday.length}건)</span>
+                <span className="font-bold text-emerald-700">{offlineAmount.toLocaleString()}원</span>
+              </div>
             </div>
-            <div className="text-right">
-              <span className="block text-slate-400">오프라인 ({offlineToday.length}건)</span>
-              <span className="font-bold text-slate-700">{offlineAmount.toLocaleString()}원</span>
+            {/* 오늘의 온/오프라인 미니 비중 게이지 바 */}
+            <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden flex">
+              <div 
+                className="bg-blue-600 h-full transition-all duration-300"
+                style={{ width: `${totalTodayRevenue > 0 ? (onlineAmount / totalTodayRevenue) * 100 : 50}%` }}
+              ></div>
+              <div 
+                className="bg-emerald-600 h-full transition-all duration-300"
+                style={{ width: `${totalTodayRevenue > 0 ? (offlineAmount / totalTodayRevenue) * 100 : 50}%` }}
+              ></div>
             </div>
           </div>
         </div>
@@ -316,50 +330,42 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
           )}
 
-          {/* 채널별 매출 분석 카드 */}
-          <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-2xs">
-            <h3 className="text-sm font-bold text-slate-800 mb-4 flex items-center justify-between">
-              <span>온라인 vs 오프라인 매출 비중</span>
-              <span className="text-xs font-normal text-slate-400">당일 실시간</span>
-            </h3>
+          {/* 온·오프라인 매출 비교 인터랙티브 차트 (일자별 / 월별 / 연도별) */}
+          <SalesChart sales={sales} currentDate={todayStr} />
 
-            {/* 프로그레스 바 */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs font-medium">
-                <span className="text-brand-700">온라인 ({onlineToday.length}건 / {onlineAmount.toLocaleString()}원)</span>
-                <span className="text-emerald-700">오프라인 ({offlineToday.length}건 / {offlineAmount.toLocaleString()}원)</span>
-              </div>
-              <div className="w-full h-3.5 bg-slate-100 rounded-full overflow-hidden flex">
-                <div 
-                  className="bg-brand-500 h-full transition-all duration-500"
-                  style={{ width: `${totalTodayRevenue > 0 ? (onlineAmount / totalTodayRevenue) * 100 : 50}%` }}
-                ></div>
-                <div 
-                  className="bg-emerald-500 h-full transition-all duration-500"
-                  style={{ width: `${totalTodayRevenue > 0 ? (offlineAmount / totalTodayRevenue) * 100 : 50}%` }}
-                ></div>
-              </div>
-              <div className="flex justify-between text-[11px] text-slate-400">
-                <span>{totalTodayRevenue > 0 ? ((onlineAmount / totalTodayRevenue) * 100).toFixed(1) : 0}%</span>
-                <span>{totalTodayRevenue > 0 ? ((offlineAmount / totalTodayRevenue) * 100).toFixed(1) : 0}%</span>
-              </div>
+          {/* 도매처별 사입 비중 미니 요약 */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-2xs">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <span>주요 거래 도매처별 보유 재고 현황</span>
+              </span>
+              <button
+                onClick={() => onNavigateTab('inventory')}
+                className="text-[11px] text-brand-700 hover:text-brand-900 font-semibold flex items-center"
+              >
+                전체 재고 보기 →
+              </button>
             </div>
-
-            {/* 도매처별 사입 비중 미니 요약 */}
-            <div className="mt-5 pt-4 border-t border-slate-100">
-              <span className="text-xs font-semibold text-slate-600 block mb-2">주요 거래 도매처별 보유 재고</span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-xs">
-                  <div className="font-semibold text-slate-700 truncate">남대문 부르뎅</div>
-                  <div className="text-slate-400 text-[11px] mt-0.5">35장 보유</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                <div className="font-bold text-slate-800 truncate">남대문 부르뎅 (아랑)</div>
+                <div className="text-slate-400 text-[11px] mt-1 flex justify-between">
+                  <span>보유 재고:</span>
+                  <strong className="text-slate-700">35장</strong>
                 </div>
-                <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-xs">
-                  <div className="font-semibold text-slate-700 truncate">동대문 혜양</div>
-                  <div className="text-slate-400 text-[11px] mt-0.5">12장 보유</div>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                <div className="font-bold text-slate-800 truncate">동대문 혜양 (코코베베)</div>
+                <div className="text-slate-400 text-[11px] mt-1 flex justify-between">
+                  <span>보유 재고:</span>
+                  <strong className="text-slate-700">12장</strong>
                 </div>
-                <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-xs">
-                  <div className="font-semibold text-slate-700 truncate">남대문 포키</div>
-                  <div className="text-slate-400 text-[11px] mt-0.5">50장 보유</div>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs col-span-2 sm:col-span-1">
+                <div className="font-bold text-slate-800 truncate">남대문 포키 (쁘띠앙)</div>
+                <div className="text-slate-400 text-[11px] mt-1 flex justify-between">
+                  <span>보유 재고:</span>
+                  <strong className="text-slate-700">50장</strong>
                 </div>
               </div>
             </div>
