@@ -1,0 +1,94 @@
+{
+  "id": "/",
+  "name": "KIDS-BIZ | 아동복 온/오프라인 통합 관리",
+  "short_name": "KIDS-BIZ",
+  "description": "아동복 온/오프라인 통합 재고 및 매출 관리 시스템",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "window-controls-overlay",
+    "minimal-ui"
+  ],
+  "orientation": "portrait-primary",
+  "background_color": "#f8f9fa",
+  "theme_color": "#5a4336",
+  "lang": "ko",
+  "dir": "ltr",
+  "categories": [
+    "business",
+    "productivity",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "빠른 판매 등록",
+      "short_name": "판매등록",
+      "description": "새로운 온/오프라인 판매를 빠르게 등록합니다",
+      "url": "/?action=sale",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "재고 현황 조회",
+      "short_name": "재고조회",
+      "description": "사이즈별 잔여 재고를 즉시 확인합니다",
+      "url": "/?tab=inventory",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "야간 발주서",
+      "short_name": "야간발주",
+      "description": "도매처 야간 발주서 및 카톡 전송",
+      "url": "/?tab=orders",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

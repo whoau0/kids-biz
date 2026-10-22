@@ -8,6 +8,7 @@ import { OrderAndSales } from './components/OrderAndSales';
 import { SaleModal } from './components/SaleModal';
 import { ProductModal } from './components/ProductModal';
 import { ReorderPromptModal } from './components/ReorderPromptModal';
+import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { ToastContainer, ToastMessage } from './components/Toast';
 import { StorageService } from './utils/storage';
 import { SupabaseService } from './utils/supabaseClient';
@@ -361,6 +362,9 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#f8f9fa] flex flex-col font-sans pb-20 md:pb-0">
+      {/* PWA 모바일 앱 설치 안내 배너 */}
+      <PwaInstallPrompt />
+
       {/* 고정 상단 헤더 */}
       <Header
         currentTab={currentTab}
@@ -384,7 +388,7 @@ export const App: React.FC = () => {
       />
 
       {/* 메인 뷰 컨테이너 */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 pb-24 md:pb-8">
         {currentTab === 'dashboard' && (
           <Dashboard
             products={products}

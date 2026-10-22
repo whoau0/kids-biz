@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="brandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#85644e" />
+      <stop offset="50%" stop-color="#5a4336" />
+      <stop offset="100%" stop-color="#1e2430" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#brandGrad)" />
+  <g filter="url(#shadow)">
+    <!-- Teddy Bear Icon / Emoji representation in clean vector -->
+    <!-- Bear ears -->
+    <circle cx="160" cy="165" r="52" fill="#decbb8" stroke="#85644e" stroke-width="8" />
+    <circle cx="160" cy="165" r="30" fill="#cbb096" />
+    <circle cx="352" cy="165" r="52" fill="#decbb8" stroke="#85644e" stroke-width="8" />
+    <circle cx="352" cy="165" r="30" fill="#cbb096" />
+    <!-- Bear head -->
+    <ellipse cx="256" cy="245" rx="135" ry="120" fill="#decbb8" stroke="#85644e" stroke-width="8" />
+    <!-- Bear eyes -->
+    <circle cx="205" cy="225" r="14" fill="#3e2723" />
+    <circle cx="209" cy="221" r="4.5" fill="#ffffff" />
+    <circle cx="307" cy="225" r="14" fill="#3e2723" />
+    <circle cx="311" cy="221" r="4.5" fill="#ffffff" />
+    <!-- Bear snout -->
+    <ellipse cx="256" cy="275" rx="56" ry="42" fill="#f5f1eb" />
+    <path d="M 242 260 C 248 252 264 252 270 260 C 273 264 269 274 256 274 C 243 274 239 264 242 260 Z" fill="#5a4336" />
+    <path d="M 256 274 L 256 288 M 245 284 Q 256 295 267 284" stroke="#5a4336" stroke-width="4.5" stroke-linecap="round" fill="none" />
+  </g>
+  <!-- KIDS-BIZ Badge -->
+  <rect x="86" y="390" width="340" height="68" rx="20" fill="#ffffff" fill-opacity="0.95" filter="url(#shadow)" />
+  <text x="256" y="436" font-family="'Pretendard', sans-serif, system-ui" font-size="34" font-weight="900" fill="#5a4336" text-anchor="middle" letter-spacing="2">KIDS-BIZ</text>
+</svg>
